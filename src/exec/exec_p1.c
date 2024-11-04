@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 06:04:07 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/04 02:06:46 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 02:27:47 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void    child_process(t_data *data, t_cmd *tmp, int *pid)
 			free_all(data, "error malloc\n", 1);
 		execve(path, tmp->args, env);
 	}
+	if (path)
+		free(path);
 	free_all(data, NULL, data->exit_code);
 }
 

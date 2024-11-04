@@ -52,23 +52,37 @@ bool	is_builtin(char *cmd)
 void	absolute_path(char **path, char *cmd, t_data *data)
 {
 	*path = ft_strdup(cmd);
-	if (access((*path), X_OK))
-            data->exit_code = 127;
-	else if (access((*path), F_OK))
+	if (access((*path), F_OK))
 	{
 		write(2, (*path), ft_strlen((*path)));
 		write(2, " : command not found\n", 21);
 		data->exit_code = 127;
 	}
+	else if (access((*path), X_OK))
+            data->exit_code = 127;
 	else
 		check_dir(path, cmd, data);
 }
 
 char    *cmd_notfound(t_data *data, char *cmd)
 {
+	t_cmd	*node;
+
+	node = data->cmd;
     write(2, cmd, ft_strlen(cmd));
 	write(2, " : command not found\n", 21);
 	data->exit_code = 127;
+	while (node)
+	{
+		if (!ft_strncmp(cmd, node->args[0], ft_strlen(cmd) + 1))
+		{
+			if (node->infile)
+				close(node->infile);
+			if (node->outfile)
+				close(node->outfile);
+		}
+		node = node->next;
+	}
 	free_all(data, NULL, data->exit_code);
 	return (NULL);
 }

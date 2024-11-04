@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 05:58:29 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/01 05:21:57 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 02:53:33 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ void	free_all(t_data *data, char *error, int ext)
 		unlink(".heredoc.tmp");
 	if (data)
 		free (data);
-	if (ext != -1)
-		exit(ext);
+	exit(ext);
 }

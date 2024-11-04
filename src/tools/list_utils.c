@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 05:57:34 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/03 23:40:37 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 02:37:51 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	last_pipe(t_list *parse)
 	t_list	*tmp;
 
 	tmp = parse;
-	if (tmp->token != 1)
+	if (tmp->token == 4)
 		return (1);
 	while (tmp != NULL)
 	{
