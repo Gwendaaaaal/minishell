@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 02:57:53 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/08 14:48:57 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:58:27 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	get_doc(t_data *data, int fd, char *word)
 	}
 	free(buf);
 	close(fd);
+	ft_free_cmd(data);
+	ft_freelist(data->parse);
+	free_env(&(data->env));
+	free(data->readline);
+	free(data);
 }
 
 void	open_here(t_data *data, t_cmd *cmd, char *word)
