@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 05:57:34 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/04 02:37:51 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 04:05:29 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ void	ft_print_tab(t_cmd *cmd)
 	{
 		while (cmd->args[i])
 		{
-			//printf("%s", cmd->args[i]);
-			//printf("%i", cmd->infile);
-			//printf("%i", cmd->outfile);
 			free (cmd->args[i]);
 			i++;
 		}
@@ -82,30 +79,8 @@ void	ft_print_tab(t_cmd *cmd)
 		cmd = cmd->next;
 		free (tmp);
 		i = 0;
-		/*while (cmd->args[i])
-		{
-			free (cmd->args[i]);
-			i++;
-		}
-		free(cmd->args);
-		tmp = cmd;
-		cmd = cmd->next;
-		free (tmp);
-		i = 0;*/
 	}
 	free (cmd);
-}
-
-void	ft_print_list_no_free(t_env **env)
-{
-	t_env *node;
-
-	node = *env;
-	while (node)
-	{
-		printf("variable = %s, value = %s\n", node->variable, node->value);
-		node = node->next;
-	}
 }
 
 void	ft_printlist(t_list *tab)

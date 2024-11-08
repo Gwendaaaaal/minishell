@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:57:07 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/03 08:56:10 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 03:47:00 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,18 @@ static int	check_long_long(char *num)
 	if (!check_number(num))
 		return (0);
 	num_len = ft_strlen(num);
-	if (num_len > 19) 	
+	if (num_len > 19)
 	{
 		if (num[0] == '-')
 		{
-			if (num_len == 20 && ft_strncmp(num, "-9223372036854775808", 20) > 0)
+			if (num_len == 20
+				&& ft_strncmp(num, "-9223372036854775808", 20) > 0)
 				return (0);
 		}
 		else if (num[0] == '+')
 		{
-			if (num_len == 20 && ft_strncmp(num, "+9223372036854775807", 20) > 0)
+			if (num_len == 20
+				&& ft_strncmp(num, "+9223372036854775807", 20) > 0)
 				return (0);
 		}
 		else
@@ -83,11 +85,11 @@ void	ft_exit(t_data *data, char **args)
 {
 	int	exit_code;
 
-	exit_code = g_signal_pid;
+	exit_code = data->exit_code;
 	if (args[0])
 	{
 		if (check_number(args[0]) && check_long_long(args[0]))
-			exit_code = ft_atoll(args[0]) % 256; 
+			exit_code = ft_atoll(args[0]) % 256;
 		else
 		{
 			write(2, "minishell : exit : numeric argument required\n", 45);

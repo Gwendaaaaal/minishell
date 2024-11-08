@@ -14,7 +14,7 @@
 
 t_list	*ft_lstnew(char *content, int tokens)
 {
-	t_list *lst;
+	t_list	*lst;
 
 	lst = malloc(sizeof(t_list));
 	if (!lst)

@@ -6,13 +6,22 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 15:05:01 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/01 00:06:13 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/08 02:00:42 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <readline/readline.h>
 #include <signal.h>
+
+void	signal_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		exit(130);
+	}
+}
 
 void	signal_childs(int sig)
 {

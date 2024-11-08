@@ -6,34 +6,11 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:56:44 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/04 01:46:31 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 03:53:23 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_env	*add_back_env(t_env **env, char *variable, char *value)
-{
-	t_env	*node;
-	t_env	*new;
-
-	new = malloc(sizeof(t_env));
-	if (!env || !new)
-		return (NULL);
-	new->variable = variable;
-	new->value = value;
-	new->next = NULL;
-	node = *env;
-	if (!*env)
-	{
-		*env = new;
-		return (new);
-	}
-	while (node->next)
-		node = node->next;
-	node->next = new;
-	return (new);
-}
 
 int	export_parse(char *line)
 {
@@ -115,7 +92,7 @@ int	export(t_env **env, char *line)
 
 int	ft_export(t_env **env, char **line, int old_exit_code)
 {
-	int i;
+	int	i;
 	int	ret;
 
 	i = 0;

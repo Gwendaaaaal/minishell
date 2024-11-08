@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_fd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 03:55:51 by gholloco          #+#    #+#             */
+/*   Updated: 2024/11/08 02:40:55 by gholloco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	open_input(t_data *data, t_cmd *cmd, char *content)
@@ -5,7 +17,7 @@ void	open_input(t_data *data, t_cmd *cmd, char *content)
 	if (cmd->infile >= 0)
 		close (cmd->infile);
 	if (cmd->infile == -1)
-		return;
+		return ;
 	cmd->infile = open(content, O_RDONLY, 0644);
 	if (cmd->infile == -1)
 		data->exit_code = 1;
@@ -16,7 +28,7 @@ void	open_output(t_data *data, t_cmd *cmd, char *content)
 	if (cmd->outfile >= 0)
 		close (cmd->outfile);
 	if (cmd->outfile == -1)
-		return;
+		return ;
 	cmd->outfile = open(content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (cmd->outfile == -1)
 		data->exit_code = 1;
@@ -27,7 +39,7 @@ void	open_append(t_data *data, t_cmd *cmd, char *content)
 	if (cmd->outfile >= 0)
 		close (cmd->outfile);
 	if (cmd->outfile == -1)
-		return;
+		return ;
 	cmd->outfile = open(content, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (cmd->outfile == -1)
 		data->exit_code = 1;

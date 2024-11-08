@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 05:58:29 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/04 02:53:33 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/08 03:21:01 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ft_free_cmd(t_data *data)
 		close (data->pid[1]);
 	while (data->cmd != NULL)
 	{
-		if (data->cmd->next == NULL && (data->cmd->infile == -1 || data->cmd->outfile == -1))
+		if (data->cmd->next == NULL && (data->cmd->infile == -1
+			|| data->cmd->outfile == -1) && data->exit_code != 130)
 			data->exit_code = 1;
 		while (data->cmd->args[i])
 		{
@@ -48,7 +49,7 @@ void	ft_free_cmd(t_data *data)
 
 void	free_all(t_data *data, char *error, int ext)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_itoa(data->exit_code);
 	known_export(&(data->env), "?", tmp);

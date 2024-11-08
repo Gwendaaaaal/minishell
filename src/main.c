@@ -6,26 +6,23 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 03:07:41 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/03 23:59:30 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/08 00:55:15 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-pid_t g_signal_pid;
+pid_t	g_signal_pid;
 
 int	check_line(t_data *data)
 {
 	while (1)
 	{
+		init_signals();
 		data->readline = (readline(data->prompt));
 		if (!data->readline)
-		{
-			free (data->readline);
-			free_env(&(data->env));
-			free (data);
-			return (1);
-		}
+			return (free (data->readline), free_env(&(data->env)),
+				free (data), 1);
 		if (!check_quotes(data->readline) || !check_syntax(data->readline))
 		{
 			free(data->readline);
@@ -37,8 +34,6 @@ int	check_line(t_data *data)
 			get_content(data);
 			if (data->parse)
 				make_cmd(data);
-			// if (ft_strlen(data->readline) != 0)
-			// 	ft_print_tab(data->cmd);
 			if (ft_strlen(data->readline) != 0)
 				add_history(data->readline);
 			free (data->readline);

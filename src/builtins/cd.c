@@ -6,11 +6,27 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:03:54 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/04 00:59:53 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/04 03:52:07 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*get_dir(t_env **env, char *dir, int *need_free)
+{
+	if (!dir || !ft_strncmp(dir, "~", 2))
+	{
+		dir = get_env_variable(env, "HOME");
+		*need_free = 1;
+	}
+	if (!ft_strncmp(dir, "-", 2))
+	{
+		dir = get_env_variable(env, "OLDPWD");
+		printf("%s\n", dir);
+		*need_free = 1;
+	}
+	return (dir);
+}
 
 int	cd(t_env **env, char *dir)
 {
@@ -19,17 +35,7 @@ int	cd(t_env **env, char *dir)
 	int		ret;
 
 	need_free = 0;
-	if (!dir || !ft_strncmp(dir, "~", 2))
-	{
-		dir = get_env_variable(env, "HOME");
-		need_free = 1;
-	}
-	if (!ft_strncmp(dir, "-", 2))
-	{
-		dir = get_env_variable(env, "OLDPWD");
-		printf("%s\n", dir);
-		need_free = 1;
-	}
+	dir = get_dir(env, dir, &need_free);
 	getcwd(cwd, PATH_MAX);
 	ret = chdir(dir);
 	if (!ret)
@@ -45,14 +51,14 @@ int	cd(t_env **env, char *dir)
 
 int	ft_cd(t_env **env, char **dir)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 0;
-	while(dir[i])
+	while (dir[i])
 		i++;
 	if (i >= 2)
-		return(write(2, "-minishell: cd: too many arguments\n", 35), 1);
+		return (write(2, "-minishell: cd: too many arguments\n", 35), 1);
 	ret = cd(env, dir[0]);
 	if (ret == -1)
 		return (write(2, "-minishell: cd: No such file or directory\n", 42), 1);

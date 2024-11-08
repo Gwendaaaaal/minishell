@@ -6,7 +6,7 @@
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 06:00:51 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/04 00:06:11 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:04:24 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,4 @@ void	make_cmd(t_data *data)
 	fd_to_tab(data);
 	ft_freelist(data->parse);
 	exec_cmd(data);
-	//if (data->cmd)
-		//ft_free_cmd(data->cmd);
 }

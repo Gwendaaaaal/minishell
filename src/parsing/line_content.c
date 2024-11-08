@@ -5,32 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 05:53:03 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/01 01:25:56 by gholloco         ###   ########.fr       */
+/*   Created: 2024/11/04 04:03:44 by gholloco          #+#    #+#             */
+/*   Updated: 2024/11/06 14:45:10 by gholloco         ###   ########.fr       */
 /*                                                                            */
-
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void remove_first_node(t_data *data) 
+void	remove_first_node(t_data *data)
 {
-    t_list *first_node;
-    const char *content;
+	t_list		*first_node;
+	const char	*content;
 
 	if (!data->parse || !data->parse->next)
 		return ;
 	first_node = data->parse;
 	content = first_node->content;
-    while (*content) 
+	while (*content)
 	{
-        if (*content != ' ')
-            return ;
-        content++;
-    }
-    data->parse = first_node->next;
-    free(first_node->content);
-    free(first_node);
+		if (*content != ' ')
+			return ;
+		content++;
+	}
+	if (data->parse->next->token != 4)
+	{
+		data->parse = first_node->next;
+		free(first_node->content);
+		free(first_node);
+	}
 }
 
 int	size_of_string(char *str, int j)
@@ -115,5 +117,4 @@ void	get_content(t_data *data)
 	}
 	expand_parsing(data);
 	remove_first_node(data);
-	//ft_printlist(data->parse);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_p3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 03:54:09 by gholloco          #+#    #+#             */
+/*   Updated: 2024/11/06 14:49:58 by gholloco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	launch_builtin(t_data *data, t_cmd *tmp)
@@ -20,20 +32,20 @@ void	launch_builtin(t_data *data, t_cmd *tmp)
 
 void	fd_builtins(t_data *data, t_cmd *tmp, int *pid)
 {
-    close(pid[0]);
-    if (tmp->infile >= 0)
-    {
-        dup2(tmp->infile , 0);
-        close (tmp->infile);
-    }
-    if (tmp->outfile >= 0)
-    {
-        dup2(tmp->outfile, 1);
-        close (tmp->outfile);
-    }
-    else if (tmp->next)
-        dup2(pid[1], 1);
-    close(pid[1]);
+	close(pid[0]);
+	if (tmp->infile >= 0)
+	{
+		dup2(tmp->infile, 0);
+		close(tmp->infile);
+	}
+	if (tmp->outfile >= 0)
+	{
+		dup2(tmp->outfile, 1);
+		close (tmp->outfile);
+	}
+	else if (tmp->next)
+		dup2(pid[1], 1);
+	close(pid[1]);
 	launch_builtin(data, tmp);
 }
 
@@ -59,26 +71,26 @@ void	absolute_path(char **path, char *cmd, t_data *data)
 		data->exit_code = 127;
 	}
 	else if (access((*path), X_OK))
-            data->exit_code = 127;
+		data->exit_code = 127;
 	else
 		check_dir(path, cmd, data);
 }
 
-char    *cmd_notfound(t_data *data, char *cmd)
+char	*cmd_notfound(t_data *data, char *cmd)
 {
 	t_cmd	*node;
 
 	node = data->cmd;
-    write(2, cmd, ft_strlen(cmd));
+	write(2, cmd, ft_strlen(cmd));
 	write(2, " : command not found\n", 21);
 	data->exit_code = 127;
 	while (node)
 	{
 		if (!ft_strncmp(cmd, node->args[0], ft_strlen(cmd) + 1))
 		{
-			if (node->infile)
+			if (node->infile && node->infile != -2)
 				close(node->infile);
-			if (node->outfile)
+			if (node->outfile && node->outfile != -2)
 				close(node->outfile);
 		}
 		node = node->next;
